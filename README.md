@@ -13,3 +13,6 @@ Settings can be set using :
   - A specified configuration file (using the dedicated option when using the CLI, or by calling the `set_configuration_file` method of the `ConfigurationManager`)
   - Environment variables (the list is provided hereafter)
   - The Command-Line options when using the CLI
+
+Settings are loaded in the order of the previous list.
+So, if a setting is specified BOTH in /etc/ospm.conf and in ~/.ospm/ospm.conf, the value from ~/.ospm/ospm.conf will override the value from ~/.ospm/ospm.conf.

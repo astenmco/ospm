@@ -56,39 +56,31 @@ class ConfigurationManager:
                               os.path.expandvars('$HOME/.conf/ospm.conf'))
 
 
-    def set_configuration_file(self, conf_file_path) -> bool:
+    def set_configuration_file(self, conf_file_path):
         """Specify a configuration file to use.
 
         Args:
             conf_file_path ([PATH]): Configuration file path.
-
-        Returns:
-            Bool: True if the operation was a success.
         """
+        error_msg = ""
         if conf_file_path:
             if os.path.isfile(conf_file_path):
-                self._model._provided_configuration_file = \
+                self._model.configuration_files['CURRENT_RUN'] = \
                     ConfigurationFile(ConfigurationFileScope.CURRENT_RUN,
                                       os.path.expandvars(conf_file_path))
-                return self._provided_configuration_file.parse()
+                self._model.configuration_files['CURRENT_RUN'].parse()
+                return
             else:
-                logging.error(f"Could not find configuration file at \"{conf_file_path}\".")
-                exit(1)
+                error_msg = "file not found."
+                
+            logging.error(f"Could not set configuration file \"{conf_file_path}\" : {error_msg}")
+            exit(1)
+
     
     def __str__(self):
-        result = "Settings can be set using :\n" \
-               + "  - The system-wide configuration file\n" \
-               + "  - The unix-user's configuration file\n" \
-               + "  - A specified configuration file\n" \
-               + "  - Environment variables\n" \
-               + "  - The system-wide configuration file\n" \
-                "Using the following configuration files (values are overrided by priority order) :\n" \
-               + "  - System-wide configuration file :\n" \
-               + textwrap.indent(str(self._model.configuration_files['SYSTEM']), '      ') +"\n" \
-               + "  - Unix-user configuration file :\n" \
-               + textwrap.indent(str(self._model.configuration_files['UNIX_USER']), '      ') +"\n" \
-               + "  - Specified configuration file for this run :\n" \
-               + textwrap.indent(str(self._model.configuration_files['CURRENT_RUN']), '      ')
+        result = "Using the following configuration files :\n" \
+               + "\n".join([ "- "+str(cf).replace("\n", "\n  ") for cf in self._model.configuration_files.values() if cf]) 
+
         return result
     
     def __repr__(self):

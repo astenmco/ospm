@@ -34,7 +34,9 @@ setup(
     python_requires=">=3.6",
     install_requires=[
         'Click',
-        'click_log'
+        'click_log',
+        'pyyaml',
+        'jsonschema'
     ],
     entry_points={
         'console_scripts': [

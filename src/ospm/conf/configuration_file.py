@@ -2,14 +2,21 @@
 """
 #Low-level imports
 import os
+import logging
+import json
+import yaml
 from enum import Enum
+import jsonschema
+import importlib.resources as pkg_resources
+
+from ospm import res
 
 
 class ConfigurationFileScope(Enum):
     SYSTEM = 1
     UNIX_USER = 2
     CURRENT_RUN = 3
-        
+
 class _ConfigurationFileModel:
     """Configuration File Model.
     """
@@ -55,8 +62,18 @@ class ConfigurationFile:
     def __init__(self, scope, path):
         self._model = _ConfigurationFileModel(scope, path)
     
+    def validate(self):
+        schema = json.loads(pkg_resources.read_text(res, 'conf.schema'))
+        with open(self._model.path, 'r') as datafile:
+            data = yaml.safe_load(datafile)
+            try:
+                jsonschema.validate(data, schema)
+            except jsonschema.exceptions.ValidationError as error :
+                logging.error(f"Invalid configuration file. Yaml could not be valitated :\n{error}")
+                exit(1)
+
     def parse(self):
-        pass
+        self.validate()
     
     def __str__(self) -> str:
         string = "Configuration file:\n" \
