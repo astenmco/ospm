@@ -1,5 +1,3 @@
-"""Configuration handling for the ospm package.
-"""
+from ospm import commands
 
-from  ospm.conf.manager import ConfigurationManager as Conf, ConfigurationManager
-import ospm.commands
+from ospm.conf import configuration_file as Conf, configuration_file

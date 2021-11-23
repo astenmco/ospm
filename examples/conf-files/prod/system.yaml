@@ -1,0 +1,7 @@
+environment-type: production
+git:
+  private-repos: "git.asten.asten/prod"
+docker:
+  private-repos: "docker.asten.asten/prod"
+openshift:
+  cluster_alias: prod

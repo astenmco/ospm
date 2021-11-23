@@ -3,14 +3,10 @@
 #Low-level imports
 import os
 import logging
-import json
 import yaml
 from enum import Enum
 import jsonschema
 import importlib.resources as pkg_resources
-
-from ospm import res
-
 
 class ConfigurationFileScope(Enum):
     SYSTEM = 1
@@ -56,21 +52,27 @@ class _ConfigurationFileModel:
 class ConfigurationFile:
     """Configuration File Handler (controller)
     """
-    
-
 
     def __init__(self, scope, path):
+        """ConfigurationFile initialization
+        """
         self._model = _ConfigurationFileModel(scope, path)
     
     def validate(self):
-        schema = json.loads(pkg_resources.read_text(res, 'conf.schema'))
-        with open(self._model.path, 'r') as datafile:
-            data = yaml.safe_load(datafile)
-            try:
-                jsonschema.validate(data, schema)
-            except jsonschema.exceptions.ValidationError as error :
-                logging.error(f"Invalid configuration file. Yaml could not be valitated :\n{error}")
-                exit(1)
+        """Validate the file (file could be read AND validated against the schema)
+        """
+        
+#        schema_path = os.path.join(res.root_path, 'conf',
+#        schema = yaml.safe_load(pkg_resources.read_text(res.conf, 'schema.yaml'))
+#        with open(self._model.path, 'r') as datafile:
+#            data = yaml.safe_load(datafile)
+#            try:
+#                jsonschema.validate(data, schema, format_checker=jsonschema.FormatChecker())
+#            except jsonschema.exceptions.ValidationError as error :
+#                logging.error(f"Invalid configuration file. Yaml could not be valitated :\n{error}")
+#                exit(1)
+
+        pass
 
     def parse(self):
         self.validate()

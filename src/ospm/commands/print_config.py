@@ -1,3 +1,4 @@
-from ospm.conf.manager import ConfigurationManager
+import logging
+
 def print_config():
-    print(ConfigurationManager())
+    logging.debug('Printing the configuration.')

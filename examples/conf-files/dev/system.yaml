@@ -1,0 +1,9 @@
+environment-type: developpment
+git:
+  private-repos: "git.asten.asten/dev"
+  public-repos: "github.com/astenmco"
+docker:
+  private-repos: "docker.asten.asten/dev"
+  public-repos: "registry.hub.docker.com/astenmco"
+openshift:
+  cluster_alias: dev

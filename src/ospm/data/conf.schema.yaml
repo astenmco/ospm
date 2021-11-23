@@ -1,0 +1,42 @@
+type: "object"
+properties: 
+    environment-type:
+        type: "string"
+        enum: 
+            - "development"
+            - "validation"
+            - "production"
+    user-full-name:
+        type: "string"
+        description: "The full name of the user in the form \"Firstname LASTNAME\""
+        pattern: "^([A-Z]{1}[a-zàâéèêëïù.]+[ -])+[A-Z.]+[ -]?[A-Z]+$"
+    user-email-address:
+        type: "string"
+        description: "The email address of the user"
+        format: "email"
+    git:
+        type: "object"
+        properties:
+            private-repos:
+                type: "string"
+                format: "uri"
+            public-repos:
+                type: "string"
+                format: "uri"
+    docker:
+        type: "object"
+        properties:
+            private-repos:
+                type: "string"
+                format: "uri"
+            public-repos:
+                type: "string"
+                format: "uri"
+    openshift:
+        type: "object"
+        properties:
+            cluster_alias:
+                type: "string"
+            user:
+                type: "string"
+additionalProperties: false

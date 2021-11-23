@@ -31,6 +31,7 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     include_package_data=True,
+    package_data={'ospm': ['data/*']},
     python_requires=">=3.6",
     install_requires=[
         'Click',
@@ -40,6 +41,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
+#            'ospmsudo = cli:sudo'
             'ospm = cli:cli',
         ],
     },

@@ -1,8 +1,0 @@
-{
-    "type": "object",
-    "properties": {
-        "environment-type" : {"enum": ["development", "validation", "production"]}
-    },
-    "required": ["environment-type"],
-    "additionalProperties": false
-}

@@ -1,0 +1,1 @@
+- Use a dedicated git repo for the templates and autopull at each template use (to be sure that everyone works with the same and latest templates)
